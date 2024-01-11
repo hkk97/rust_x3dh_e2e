@@ -3,6 +3,7 @@ use rand::{RngCore, thread_rng};
 use aes_gcm::{Aes256Gcm, KeyInit, aead::Aead}; // Add Aead here
 use aes_gcm::aead::generic_array::GenericArray;
 
+#[allow(dead_code)]
 pub fn hex_string_to_bytes(hex_string: &str) -> Vec<u8> {
     let bytes: Vec<u8> = hex_string
         .as_bytes()
@@ -19,6 +20,7 @@ pub fn hex_string_to_bytes(hex_string: &str) -> Vec<u8> {
     bytes
 }
 
+#[allow(dead_code)]
 fn perform_encryption(key: &[u8], plaintext: &[u8]) -> (Vec<u8>, Vec<u8>) {
     let cipher = Aes256Gcm::new(GenericArray::from_slice(key));
 
@@ -31,6 +33,7 @@ fn perform_encryption(key: &[u8], plaintext: &[u8]) -> (Vec<u8>, Vec<u8>) {
     (ciphertext.to_vec(), iv.to_vec())
 }
 
+#[allow(dead_code)]
 pub fn encrypt_with_string_key(shared_secret_key: String, plaintext: String) -> (Vec<u8>, Vec<u8>) {
     let key = hex_string_to_bytes(&shared_secret_key);
     let plaintext_bytes = plaintext.as_bytes();
@@ -38,6 +41,7 @@ pub fn encrypt_with_string_key(shared_secret_key: String, plaintext: String) -> 
     perform_encryption(&key, &plaintext_bytes)
 }
 
+#[allow(dead_code)]
 pub fn encrypt_with_bytes_key(shared_secret_key: Vec<u8>, plaintext: String) -> (Vec<u8>, Vec<u8>) {
     let key = shared_secret_key;
     let plaintext_bytes = plaintext.as_bytes();
@@ -45,7 +49,20 @@ pub fn encrypt_with_bytes_key(shared_secret_key: Vec<u8>, plaintext: String) -> 
     perform_encryption(&key, &plaintext_bytes)
 }
 
-pub fn decrypt(shared_secret_key: Vec<u8>, ciphertext: Vec<u8>, iv: Vec<u8>) -> String {
+#[allow(dead_code)]
+pub fn decrypt_with_string_key(shared_secret_key: String, ciphertext: Vec<u8>, iv: Vec<u8>) -> String {
+    let shared_secret_bytes_key = hex_string_to_bytes(&shared_secret_key);
+    let key = GenericArray::from_slice(&shared_secret_bytes_key);
+    let cipher = Aes256Gcm::new(key);
+
+    let nonce = GenericArray::from_slice(&iv);
+
+    let decrypted_text = cipher.decrypt(nonce, &*ciphertext).expect("Decryption failure!");
+    String::from_utf8(decrypted_text).expect("Invalid UTF-8")
+}
+
+#[allow(dead_code)]
+pub fn decrypt_with_bytes_key(shared_secret_key: Vec<u8>, ciphertext: Vec<u8>, iv: Vec<u8>) -> String {
     let key = GenericArray::from_slice(&shared_secret_key);
     let cipher = Aes256Gcm::new(key);
 

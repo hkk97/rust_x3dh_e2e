@@ -24,7 +24,7 @@ mod tests {
         ];
         let plain_text = "Hello world!";
         let (ciphertext, iv) = encryption::encrypt_with_bytes_key(u1_shared_secret_key, plain_text.to_string());
-        let decrypted_text = encryption::decrypt(u2_hared_secret_key, ciphertext, iv);
+        let decrypted_text = encryption::decrypt_with_bytes_key(u2_hared_secret_key, ciphertext, iv);
         assert_eq!(decrypted_text, plain_text);
     }
 
@@ -34,9 +34,9 @@ mod tests {
         let bytes_shared_secret_key: Vec<u8> = vec![53, 15, 247, 173, 190, 158, 119, 241, 76, 61, 14, 52, 24, 187, 187, 218, 86, 92, 54, 125, 89, 21, 240, 105, 138, 149, 236, 206, 209, 188, 7, 72];
         let plain_text = "Hello world!";
         let (ciphertext, iv) = encryption::encrypt_with_string_key(hex_shared_secret_key.to_string(), plain_text.to_string());
-        let decrypted_text = encryption::decrypt(bytes_shared_secret_key, ciphertext, iv);
+        let decrypted_text = encryption::decrypt_with_bytes_key(bytes_shared_secret_key, ciphertext, iv);
         assert_eq!(decrypted_text, plain_text);
     }
 }
 
-fn main(){}
+fn main() {}
