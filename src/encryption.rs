@@ -1,7 +1,7 @@
 extern crate hex;
 use rand::{RngCore, thread_rng};
 use aes_gcm::{Aes256Gcm, KeyInit, aead::Aead}; // Add Aead here
-use aes_gcm::aead::{generic_array::GenericArray};
+use aes_gcm::aead::generic_array::GenericArray;
 
 pub fn hex_string_to_bytes(hex_string: &str) -> Vec<u8> {
     let bytes: Vec<u8> = hex_string
