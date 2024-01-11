@@ -1,4 +1,4 @@
-# x3dh_e2e
+# rust_x3dh_e2e
 
 x3dh_e2e is a robust and secure project that focuses on implementing end-to-end encryption using the Extended Triple Diffie-Hellman (X3DH) key agreement protocol. The project aims to provide a reliable solution for secure communication, ensuring privacy and data integrity. It's designed with the vision of making the internet a safer place by enabling developers to easily integrate high-standard encryption into their applications.
 
