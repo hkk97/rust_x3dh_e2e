@@ -38,3 +38,5 @@ mod tests {
         assert_eq!(decrypted_text, plain_text);
     }
 }
+
+fn main(){}
