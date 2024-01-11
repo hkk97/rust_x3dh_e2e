@@ -2,9 +2,6 @@
 
 x3dh_e2e is a robust and secure project that focuses on implementing end-to-end encryption using the Extended Triple Diffie-Hellman (X3DH) key agreement protocol. The project aims to provide a reliable solution for secure communication, ensuring privacy and data integrity. It's designed with the vision of making the internet a safer place by enabling developers to easily integrate high-standard encryption into their applications.
 
-
-Certainly! Here's an example of how you can structure and style your README.md file:
-
 # Encryption and Decryption Utility
 
 This utility provides functions for encrypting and decrypting data using the AES-256-GCM encryption algorithm. It utilizes the `aes_gcm` crate for encryption and decryption operations.
