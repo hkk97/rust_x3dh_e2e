@@ -7,6 +7,7 @@ edition = "2021"
 
 [dependencies]
 aes-gcm = "0.10.3"
+criterion = "0.5.1"
 hex = "0.4.3"
 rand = "0.8.5"
 serde = { version = "1.0.195", features = ["derive"] }
@@ -19,5 +20,6 @@ bencher = "0.1.5"
 
 [[bench]]
 name = "x3dh_e2e_bench"
-path = "src/benchmark.rs"
+path = "src/criterion_benchmark.rs"
 harness = false
+bench = false
