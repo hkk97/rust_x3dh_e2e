@@ -110,7 +110,7 @@ $ cargo test
 The test results will be displayed in the console.
 
 
-##### Performance BenchmarksTo measure the performance of this project, you can run benchmarks using the following command:bashcargo benchThe benchmark results will be displayed in the console.
+##### Performance BenchmarksTo measure the performance of this project, you can run benchmarks using the following command:
 
 ## Running Benchmark
 You can run bench for this project using the following command:
