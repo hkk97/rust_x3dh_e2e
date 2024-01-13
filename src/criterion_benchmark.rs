@@ -32,7 +32,7 @@ fn encryption_benchmark(c: &mut Criterion) {
                         let (ciphertext, iv) =
                             encryption::encrypt_with_string_key(key_pair.u1_shared_secret_key.to_string(), text.to_string());
                         let decrypted_text =
-                            encryption::decrypt_with_string_key(key_pair.u2_shared_secret_key.to_string(), ciphertext, iv);
+                            encryption::decrypt_with_hex_string_key(key_pair.u2_shared_secret_key.to_string(), ciphertext, iv);
                         assert_eq!(decrypted_text, text.to_string());
                     }
                 }

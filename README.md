@@ -65,11 +65,11 @@ Ensure that you have Rust and Cargo installed on your machine. You can install t
    }
    ```
 
-7. Implement the `decrypt_with_string_key` function to decrypt data using a shared secret key provided as a hexadecimal string:
+7. Implement the `decrypt_with_hex_string_key` function to decrypt data using a shared secret key provided as a hexadecimal string:
 
    ````rust
    #[allow(dead_code)]
-   pub fn decrypt_with_string_key(shared_secret_key: String, ciphertext: Vec<u8>, iv: Vec<u8>) -> String {
+   pub fn decrypt_with_hex_string_key(shared_secret_key: String, ciphertext: Vec<u8>, iv: Vec<u8>) -> String {
        // Implementation details...
    }
    ```
@@ -94,7 +94,7 @@ Ensure that you have Rust and Cargo installed on your machine. You can install t
        println!("Ciphertext: {:?}", ciphertext);
        println!("IV: {:?}", iv);
 
-       let decrypted_text = decrypt_with_string_key(shared_secret_key, ciphertext, iv);
+       let decrypted_text = decrypt_with_hex_string_key(shared_secret_key, ciphertext, iv);
        println!("Decrypted Text: {}", decrypted_text);
    }
    ```

@@ -29,7 +29,7 @@ mod tests {
     }
 
     #[test]
-    fn test_encrypt_decrypt_with_string_key() {
+    fn test_encrypt_decrypt_with_hex_string_key() {
         let hex_shared_secret_key: String = "350ff7adbe9e77f14c3d0e3418bbbbda565c367d5915f0698a95ecced1bc0748".to_string();
         let bytes_shared_secret_key: Vec<u8> = vec![53, 15, 247, 173, 190, 158, 119, 241, 76, 61, 14, 52, 24, 187, 187, 218, 86, 92, 54, 125, 89, 21, 240, 105, 138, 149, 236, 206, 209, 188, 7, 72];
         let plain_text = "Hello world!";
