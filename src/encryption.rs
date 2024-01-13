@@ -1,7 +1,11 @@
 extern crate hex;
-use rand::{RngCore, thread_rng};
+use rand::RngCore;
 use aes_gcm::{Aes256Gcm, KeyInit, aead::Aead}; // Add Aead here
 use aes_gcm::aead::generic_array::GenericArray;
+
+lazy_static::lazy_static! {
+    static ref KEY: Aes256Gcm = Aes256Gcm::new(GenericArray::from_slice(&[0; 32]));
+}
 
 #[allow(dead_code)]
 pub fn hex_string_to_bytes(hex_string: &str) -> Vec<u8> {
@@ -22,12 +26,11 @@ pub fn hex_string_to_bytes(hex_string: &str) -> Vec<u8> {
 
 #[allow(dead_code)]
 fn perform_encryption(key: &[u8], plaintext: &[u8]) -> (Vec<u8>, Vec<u8>) {
-    let cipher = Aes256Gcm::new(GenericArray::from_slice(key));
-
     let mut iv = [0u8; 12];
-    thread_rng().fill_bytes(&mut iv);
+    rand::thread_rng().fill_bytes(&mut iv);
     let nonce = GenericArray::from_slice(&iv);
 
+    let cipher = Aes256Gcm::new(GenericArray::from_slice(&key));
     let ciphertext = cipher.encrypt(nonce, plaintext).expect("Encryption failure!");
 
     (ciphertext.to_vec(), iv.to_vec())
@@ -50,11 +53,9 @@ pub fn encrypt_with_bytes_key(shared_secret_key: Vec<u8>, plaintext: String) -> 
 }
 
 #[allow(dead_code)]
-pub fn decrypt_with_string_key(shared_secret_key: String, ciphertext: Vec<u8>, iv: Vec<u8>) -> String {
+pub fn decrypt_with_hex_string_key(shared_secret_key: String, ciphertext: Vec<u8>, iv: Vec<u8>) -> String {
     let shared_secret_bytes_key = hex_string_to_bytes(&shared_secret_key);
-    let key = GenericArray::from_slice(&shared_secret_bytes_key);
-    let cipher = Aes256Gcm::new(key);
-
+    let cipher = Aes256Gcm::new(GenericArray::from_slice(&shared_secret_bytes_key));
     let nonce = GenericArray::from_slice(&iv);
 
     let decrypted_text = cipher.decrypt(nonce, &*ciphertext).expect("Decryption failure!");
@@ -63,9 +64,7 @@ pub fn decrypt_with_string_key(shared_secret_key: String, ciphertext: Vec<u8>, i
 
 #[allow(dead_code)]
 pub fn decrypt_with_bytes_key(shared_secret_key: Vec<u8>, ciphertext: Vec<u8>, iv: Vec<u8>) -> String {
-    let key = GenericArray::from_slice(&shared_secret_key);
-    let cipher = Aes256Gcm::new(key);
-
+    let cipher = Aes256Gcm::new(GenericArray::from_slice(&shared_secret_key));
     let nonce = GenericArray::from_slice(&iv);
 
     let decrypted_text = cipher.decrypt(nonce, &*ciphertext).expect("Decryption failure!");
